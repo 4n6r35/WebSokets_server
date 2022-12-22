@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import http from "http"
 import { Server as SocketServer } from "socket.io"
+import { SocketCotroller } from '../sockets/controller.js'
 
 class Server {
 
@@ -32,15 +33,7 @@ class Server {
     routes() { }
 
     config_sockets() {
-        this.io.on('connection', socket => {
-            console.log('Cliente conectado', socket.id);
-            socket.on('disconnect', () => {
-                console.log('Cliente desconectado', socket.id);
-            });
-            socket.on('enviar-mensaje', (payload) => {
-                console.log(payload)
-            })
-        });
+        this.io.on('connection', SocketCotroller);
     }
 
     Port_listen() {
